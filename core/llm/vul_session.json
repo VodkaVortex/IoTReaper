@@ -1,0 +1,22 @@
+[
+  {
+    "role": "system",
+    "content": "You are highly skilled in analyzing IoT device code security.We provide information such as source_function, sink_function, call_chain, and code."
+  },
+  {
+    "role": "user",
+    "content": "Help me determine whether there is a command injection or buffer overflow issue. Just output Yes or No, and do not output the analysis process. You need to carefully check the buffer size of the source and whether the data flowing from the source stream can actually reach the sink function."
+  },
+  {
+    "role": "assistant",
+    "content": "Okay"
+  },
+  {
+    "role": "user",
+    "content": "Please answer strictly based on my requirements and examples, Don’t have redundant answers!!!  Don’t analyze functions with similar names — only analyze functions with exactly the same name."
+  },
+  {
+    "role": "assistant",
+    "content": "ok , please input "
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "role": "system",
+    "content": "You are highly skilled in analyzing IoT device code. Multiple function codes are separated by -------------------------------."
+  },
+  {
+    "role": "user",
+    "content": "You are highly skilled in analyzing IoT device code. Your task is to identify, from the provided function names and their corresponding code, the functions that transmit user data to the backend via the HTTP protocol. You do not need to explain the analysis process — only provide the result, formatted as ***funcname***. If there are two such functions, format the result as ***funcname1,funcname2***."
+  },
+  {
+    "role": "assistant",
+    "content": "Okay, can you give me some examples?"
+  },
+  {
+    "role": "user",
+    "content": "_BYTE *__fastcall httpd_get_parm(int a1, char *a2)\n{\n _BYTE *v2; // $s0\n _BYTE **v3; // $a0\n char v4; // $a3\n int v5; // $v0\n char *v6; // $a2\n char *v7; // $a2\n _BYTE *v9; // $s0\n\n v2 = *(_BYTE **)(a1 + 32);\n v3 = (_BYTE **)(a1 + 32);\n if ( !v2 )\n return 0;\n while ( 1 )\n {\n v6 = a2;\n if ( (char)*v2 == *a2 )\n {\n while ( 1 )\n {\n v7 = v6 + 1;\n v4 = *v7;\n ++v2;\n v6 = v7 + 1;\n if ( (char)*v2 != v4 )\n break;\n if ( (char)*++v2 != *v6 )\n {\n v5 = *v6;\n goto LABEL_5;\n }\n }\n }\n else\n {\n v4 = *a2;\n }\n v5 = v4;\nLABEL_5:\n if ( !v5 && *v2 == 61 )\n break;\n v2 = *++v3;\n if ( !*v3 )\n return 0;\n }\n v9 = v2 + 1;\n _httpd_parm_do(v9);\n return v9;\n}\n-------------------------------\nchar *__fastcall jhl_vpnget(int a1, int a2)\n{\n char **v3; // $s1\n char **v4; // $s0\n char *v5; // $a0\n\n if ( a2 >= 20 || !jhl_vpn_alls[0] )\n return (char *)a1;\n v3 = &jhl_vpn_alls[a2 + 1];\n v4 = jhl_vpn_alls;\n while ( 1 )\n {\n v5 = *v4;\n v4 += 66;\n if ( !strcmp(v5, a1) )\n break;\n v3 += 66;\n if ( !*v4 )\n return (char *)a1;\n }\n return *v3;\n}"
+  },
+  {
+    "role": "assistant",
+    "content": "***httpd_get_parm***"
+  },
+  {
+    "role": "user",
+    "content": "Please answer strictly based on my requirements and examples, Don’t have redundant answers!!! Remember, the goal is to identify fields that retrieve user input from the HTTP protocol, not those that perform settings or other operations."
+  },
+  {
+    "role": "assistant",
+    "content": "ok , please input "
+  }
+]

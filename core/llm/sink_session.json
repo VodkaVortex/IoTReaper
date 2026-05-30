@@ -1,0 +1,23 @@
+[
+  {
+  "role": "system",
+  "content": "You are highly skilled in analyzing IoT device code security. You will be given a function call chain together with the decompiled code of the corresponding functions. Your task is to determine whether the data flow from the entry (initial) function can propagate, in string form, to the final function's parameters."
+  },
+  {
+  "role": "user",
+  "content": "Please carefully analyze the parameter passing relationships in the provided call chain to determine whether the parameters of the initial function can be passed to the parameters of the final function through single-level or multi-level function calls. The data must be passed in string format only (such as char*, const char*, string buffers, or concatenated strings). If the data is converted to or passed through any non-string format (such as %d, integers, structures, or other non-string types), treat it as not passed. If the parameters of the initial function can reach the parameters of the final function in string form, output Yes; otherwise, output No."
+  },
+  {
+  "role": "assistant",
+  "content": "Okay"
+  },
+  {
+  "role": "user",
+  "content": "From now on, answer strictly based on my requirements. Do not output any redundant content. For each analysis result, only output Yes or No, without any other characters, punctuation, spaces, or explanations."
+  },
+  {
+  "role": "assistant",
+  "content": "OK, please input"
+  }
+  ]
+  

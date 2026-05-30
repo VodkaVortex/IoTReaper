@@ -1,0 +1,91 @@
+Possible file format: ELF for ARM (Executable) (/Applications/IDA Professional 9.3.app/Contents/MacOS/loaders/elf.dylib)
+
+  bytes   pages size description
+--------- ----- ---- --------------------------------------------
+  2162688   264 8192 allocating memory for b-tree...
+  2162688   264 8192 allocating memory for virtual array...
+   262144    32 8192 allocating memory for name pointers...
+-----------------------------------------------------------------
+  4587520            total memory allocated
+
+Loading file '/Users/yangshuangning/VscodeProjects/LIVA-main/CH22/bin/httpd' into database...
+Detected file format: ELF for ARM (Executable)
+Assuming __cdecl calling convention by default
+Loading processor module /Applications/IDA Professional 9.3.app/Contents/MacOS/procs/arm.dylib for arm...OK
+Autoanalysis subsystem has been initialized.
+  0. Creating a new segment  (00089BC4-00089BE4) ... ... OK
+  1. Creating a new segment  (00008034-00008114) ... ... OK
+  2. Creating a new segment  (00008000-00008034) ... ... OK
+  3. Creating a new segment  (00008114-00089BC4) ... ... OK
+  4. Creating a new segment  (00089BE4-00089BE8) ... ... OK
+  5. Creating a new segment  (00091BE8-00095F94) ... ... OK
+Assuming __fastcall calling convention by default
+Type library 'gnulnx_arm' loaded. Applying types...
+Types applied to 0 names.
+  6. Creating a new segment  (0000C834-0000C844) ... ... OK
+  7. Creating a new segment  (0000C844-00089BC4) ... ... OK
+  8. Creating a new segment  (0000C844-0000D074) ... ... OK
+     Deleting segment        (0000D074-00089BC4) ...
+  8. Creating a new segment  (0000D074-00089BC4) ... ... OK
+  9. Creating a new segment  (0000D074-0007D2D0) ... ... OK
+     Deleting segment        (0007D2D0-00089BC4) ...
+  9. Creating a new segment  (0007D2D0-00089BC4) ... ... OK
+ 10. Creating a new segment  (0007D2D0-0007D2E0) ... ... OK
+     Deleting segment        (0007D2E0-00089BC4) ...
+ 10. Creating a new segment  (0007D2E0-00089BC4) ... ... OK
+     Deleting segment        (0007D2E0-00089BC4) ...
+ 10. Creating a new segment  (0007D2E0-00089BC4) ... ... OK
+     Deleting segment        (00089BC4-00089BE4) ...
+ 10. Creating a new segment  (00089BC4-00089BE4) ... ... OK
+     Deleting segment        (00089BE4-00089BE8) ...
+ 10. Creating a new segment  (00089BE4-00089BE8) ... ... OK
+ 11. Creating a new segment  (00091BE8-00091BEC) ... ... OK
+     Deleting segment        (00091BEC-00095F94) ...
+ 11. Creating a new segment  (00091BEC-00095F94) ... ... OK
+ 12. Creating a new segment  (00091BEC-00091BF0) ... ... OK
+     Deleting segment        (00091BF0-00095F94) ...
+ 12. Creating a new segment  (00091BF0-00095F94) ... ... OK
+ 13. Creating a new segment  (00091BF0-00091BF4) ... ... OK
+     Deleting segment        (00091BF4-00095F94) ...
+ 13. Creating a new segment  (00091BF4-00095F94) ... ... OK
+ 14. Creating a new segment  (00091BF4-00091CC8) ... ... OK
+     Deleting segment        (00091CC8-00095F94) ...
+ 14. Creating a new segment  (00091CC8-00095F94) ... ... OK
+ 15. Creating a new segment  (00091DF8-0009240C) ... ... OK
+ 16. Creating a new segment  (0009240C-00095F94) ... ... OK
+ 17. Creating a new segment  (0009240C-00093CC8) ... ... OK
+     Deleting segment        (00093CC8-00095F94) ...
+ 17. Creating a new segment  (00093CC8-00095F94) ... ... OK
+     Deleting segment        (00093CC8-00095F94) ...
+ 17. Creating a new segment  (00093CC8-00095F94) ... ... OK
+ 18. Creating a new segment  (00095F94-00095F95) ... ... OK
+ 19. Creating a new segment  (00095F98-00096260) ... ... OK
+ 20. Creating a new segment  (00096260-0009627C) ... ... OK
+Processing relocations...
+Marking typical code sequences...
+Flushing buffers, please wait...ok
+File '/Users/yangshuangning/VscodeProjects/LIVA-main/CH22/bin/httpd' has been successfully loaded into the database.
+ ARM AND THUMB MODE SWITCH INSTRUCTIONS
+
+ This processor has two instruction encodings: ARM and THUMB.
+ IDA allows to specify the encoding mode for every single instruction.
+ For this IDA uses a virtual register T. If its value is zero, then
+ the ARM mode is used, otherwise the THUMB mode is used.
+ You can change the value of the register T using
+ the 'change segment register value' command
+ (the canonical hotkey is Alt-G)
+ -> OK
+Flushing buffers, please wait...ok
+Hex-Rays Decompiler plugin has been loaded (v9.3.0.251224)
+  The hotkeys are F5: decompile, Ctrl-F5: decompile all.
+
+  Please check the Edit/Plugins menu for more information.
+Hex-rays version 9.3.0.251224 has been detected, gooMBA plugin ready to use
+Using type parser: legacy
+IDA is analysing the input file...
+You may start to explore the input file right now.
+[*] pipe loop started, pipe=/tmp/ida_mcp_httpd_4.sock
+Propagating type information...
+Function argument information has been propagated
+lumina: Signature decryption failed with code: -2
+The initial autoanalysis has been finished.

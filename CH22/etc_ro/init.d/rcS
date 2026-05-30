@@ -1,0 +1,84 @@
+#! /bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin/
+export PATH
+
+mount -t ramfs none /var/
+
+
+mkdir -p /var/etc
+mkdir -p /var/media
+mkdir -p /var/webroot
+mkdir -p /var/etc/iproute
+mkdir -p /var/run
+cp -rf /etc_ro/* /etc/
+cp -rf /webroot_ro/* /webroot/
+
+mount -a
+
+mount -t ramfs /dev
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+mdev -s
+mkdir /var/run
+
+echo '/sbin/mdev' > /proc/sys/kernel/hotplug
+echo 'sd[a-z][0-9] 0:0 0660 @/usr/sbin/autoUsb.sh $MDEV' >> /etc/mdev.conf
+echo 'sd[a-z] 0:0 0660 $/usr/sbin/DelUsb.sh $MDEV' >> /etc/mdev.conf
+echo 'lp[0-9] 0:0 0660 */usr/sbin/IppPrint.sh'>> /etc/mdev.conf
+
+
+####################### This will write in c code #########################
+#####set 2 vlan
+#nvram set vlan1ports="1 2 3 4 8*"
+#nvram set vlan2ports="0 8"
+#nvram commit
+#####set 3 vlan
+#nvram set vlan1ports="2 3 4 8*"
+#nvram set vlan2ports="0 8"
+#nvram set vlan3ports="1 8"
+#nvram commit
+#insmod /lib/modules/2.6.22/kernel/drivers/net/et/et.ko
+#sleep 1
+#ifconfig eth0 up
+#ifconfig lo up
+#vconfig add eth0 1
+#vconfig add eth0 2
+#ifconfig eth0.1 192.168.1.1 up
+#ifconfig eth0.2 192.168.1.2 up
+###########################################################################
+#insmod /lib/modules/2.6.22/kernel/drivers/net/et/et.ko
+#insmod /lib/modules/2.6.22/kernel/drivers/net/wl/wl.ko
+###usb###
+#insmod /lib/modules/2.6.22/kernel/drivers/usb/core/usbcore.ko
+#insmod /lib/modules/2.6.22/kernel/drivers/usb/host/ehci-hcd.ko
+#insmod /lib/modules/2.6.22/kernel/drivers/usb/host/ohci-hcd.ko
+#insmod /lib/modules/2.6.22/kernel/drivers/usb/storage/usb-storage.ko
+#insmod /lib/modules/2.6.22/kernel/drivers/usb/class/usblp.ko
+mkdir -p /var/ppp
+
+mkdir -m 777 /tmp/samba
+mkdir -m 777 /tmp/samba/lib
+mkdir -m 777 /tmp/samba/private
+mkdir -m 777 /tmp/samba/var
+mkdir -m 777 /tmp/samba/var/locks
+cp -f /usr/sbin/smb.conf /tmp/samba/lib
+chmod +x /etc/mdev.conf
+
+cfmd &
+sleep 2
+netctrl &
+sleep 20
+cfm post netctrl wifi
+
+#httpd &
+#appweb &
+
+#netctrl &
+
+#multiWAN &
+
+#sntp &
+
+#logserver &
+

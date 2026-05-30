@@ -1,0 +1,5 @@
+source_function: cgiFormString()
+sink_function: system()
+call_chain: test_func->system()
+code:
+void test_func() { system(x); }

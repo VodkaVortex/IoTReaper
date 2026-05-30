@@ -1,0 +1,32 @@
+// 简化版本 - 直接返回节点和关系
+MATCH (src:Parameter {param_func: 'cgiFormString'})
+MATCH (dst:Parameter)
+WHERE dst.func_name IN ['popen','system'] 
+  AND toString(dst.position) = '1'
+MATCH p = (src)-[:PARAM_PASS*1..12]->(dst)
+RETURN src, dst, relationships(p)
+LIMIT 50
+
+
+
+// 1) 起点：所有 param_func='httpd_get_parm' 的参数
+MATCH (src:Parameter)
+WHERE src.param_func = 'cgiFormString'
+
+// 2) 目标：popen:1（把 position 统一成字符串比较）
+WITH collect(src) AS sources
+UNWIND sources AS src
+MATCH (dst:Parameter)
+WHERE dst.func_name IN ['popen','system']            // 若以后建了 system 再把 'system' 加进来
+  AND toString(dst.position) = '1'
+
+// 3) 沿着 PARAM_PASS 找路径（可选 allShortestPaths 或限定深度的所有简单路径）
+MATCH p = allShortestPaths( (src)-[:PARAM_PASS*1..12]->(dst) )
+RETURN
+  src.func_name   AS src_func_name,
+  toString(src.position) AS src_position,
+  dst.func_name   AS dst_func_name,
+  toString(dst.position) AS dst_position,
+  length(p)       AS hops,
+  [n IN nodes(p) | coalesce(n.func_name,'?') + ':' + toString(coalesce(n.position,'?'))] AS param_path
+ORDER BY dst_func_name, hops;

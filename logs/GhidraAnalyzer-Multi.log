@@ -1,0 +1,77 @@
+2025-05-09 06:23:56,733 - GhidraAnalyzer - INFO - test
+2025-05-09 06:24:09,500 - GhidraAnalyzer - INFO - Subprocess output: INFO  Using log config file: jar:file:/home/satc/liva/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/satc/.ghidra/.ghidra_9.2.1_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/satc/.ghidra/.ghidra_9.2.1_PUBLIC/preferences (Preferences)  
+INFO  Class search complete (1024 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  HEADLESS Script Paths:
+    /home/satc/liva/ghidra/Ghidra/Features/Python/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /home/satc/liva/scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/satc/liva/result/libcommon.so_9881ea/ghidra_res/libcommon.so_unsafe_func (HeadlessAnalyzer)  
+INFO  Opening project: /home/satc/liva/result/libcommon.so_9881ea/ghidra_res/libcommon.so_unsafe_func (HeadlessProject)  
+INFO  REPORT: Processing project file: /libcommon.so (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: /libcommon.so (HeadlessAnalyzer)  
+INFO  Packed database cache: /tmp/satc-Ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  -----------------------------------------------------
+    ARM Constant Reference Analyzer            2.290 secs
+    ARM Pre-Pattern Analyzer                   0.014 secs
+    ARM Symbol                                 0.012 secs
+    ASCII Strings                              0.632 secs
+    Apply Data Archives                        0.278 secs
+    Call Convention ID                         0.012 secs
+    Call-Fixup Installer                       0.006 secs
+    Create Address Tables                      0.051 secs
+    Create Function                            0.000 secs
+    DWARF                                      0.123 secs
+    Data Reference                             0.113 secs
+    Decompiler Switch Analysis                 0.199 secs
+    Demangler GNU                              0.039 secs
+    Disassemble Entry Points                   0.075 secs
+    Embedded Media                             0.015 secs
+    External Entry References                  0.002 secs
+    Function Start Search                      0.083 secs
+    Function Start Search After Code           0.013 secs
+    Function Start Search After Data           0.010 secs
+    GCC Exception Handlers                     0.010 secs
+    Non-Returning Functions - Discovered       0.091 secs
+    Non-Returning Functions - Known            0.010 secs
+    Reference                                  0.180 secs
+    Shared Return Calls                        0.027 secs
+    Stack                                      0.097 secs
+    Subroutine References                      0.134 secs
+-----------------------------------------------------
+     Total Time   4 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: /libcommon.so (HeadlessAnalyzer)  
+INFO  SCRIPT: /home/satc/liva/scripts/unsafe_func.py (HeadlessAnalyzer)  
+('Analyzing entry function:', u'arg1')
+('Function not found:', u'arg1')
+INFO  ANALYZING changes made by post scripts: /libcommon.so (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: /libcommon.so (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for processed file: /libcommon.so (HeadlessAnalyzer)  
+
+2025-05-09 06:24:09,500 - GhidraAnalyzer - ERROR - Subprocess error: OpenJDK 64-Bit Server VM warning: Archived non-system classes are disabled because the java.system.class.loader property is specified (value = "ghidra.GhidraClassLoader"). To use archived non-system classes, this property must be not be set
+openjdk version "11.0.14" 2022-01-18
+OpenJDK Runtime Environment (build 11.0.14+9-Ubuntu-0ubuntu2.16.04)
+OpenJDK 64-Bit Server VM (build 11.0.14+9-Ubuntu-0ubuntu2.16.04, mixed mode, sharing)
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.apache.felix.framework.ext.ClassPathExtenderFactory$DefaultClassLoaderExtender (file:/home/satc/liva/ghidra/Ghidra/Features/Base/lib/org.apache.felix.framework-6.0.3.jar) to method java.net.URLClassLoader.addURL(java.net.URL)
+WARNING: Please consider reporting this to the maintainers of org.apache.felix.framework.ext.ClassPathExtenderFactory$DefaultClassLoaderExtender
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+

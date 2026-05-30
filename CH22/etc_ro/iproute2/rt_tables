@@ -1,0 +1,21 @@
+#
+# reserved values
+#
+255	local
+254	main
+253	default
+0	unspec
+#
+# local
+#
+#1	inr.ruhep
+
+198   edu
+199   cmc
+200   cnc
+201   ctc
+202   wan1
+203   wan2
+204   wan3
+205   wan4
+206   pptp

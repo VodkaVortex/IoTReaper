@@ -1,0 +1,100 @@
+# @category Analysis
+# @description Recursively search dangerous function calls (up to 5 layers deep)
+
+from collections import defaultdict
+from ghidra.program.model.symbol import SymbolType
+
+# ===== CONFIG =====
+MAX_DEPTH = 5
+DANGEROUS_FUNCS = {"system", "popen", "execve", "strcpy", "sprintf", "strcat", "memcpy", "execl", "fopen", "doSystemCmd"}
+# ==================
+DANGEROUS_PARAM_POS = {
+    "system": [0],
+    "popen": [0],
+    "execve": [0],
+    "strcpy": [1],
+    "sprintf": [1],
+    "strcat": [1],
+    "memcpy": [1],
+    "execl": [0],
+    "fopen": [0],
+    "doSystemCmd": [0]
+}
+# ==================
+visited_funcs = set()
+dangerous_paths = defaultdict(list)
+
+def get_func_by_name(func_name):
+    symbols = currentProgram.getSymbolTable().getSymbols(func_name)
+    for sym in symbols:
+        if sym.getSymbolType() == SymbolType.FUNCTION:
+            return getFunctionAt(sym.getAddress())
+    return None
+
+def get_callees(func):
+    """Find all functions called by the given function."""
+    callees = []
+    instructions = currentProgram.getListing().getInstructions(func.getBody(), True)
+    for inst in instructions:
+        if inst.getFlowType().isCall():
+            refs = inst.getReferencesFrom()
+            for ref in refs:
+                if ref.getReferenceType().isCall():
+                    callee = getFunctionAt(ref.getToAddress())
+                    if callee:
+                        callees.append((inst.getAddress(), callee))
+    return callees
+
+
+
+
+def trace_dangerous_calls(func, depth=0, call_chain=None):
+    if not func or func in visited_funcs or depth > MAX_DEPTH:
+        return
+    if call_chain is None:
+        call_chain = []
+    
+    visited_funcs.add(func)
+    callees = get_callees(func)
+    for addr, callee in callees:
+        new_chain = call_chain + [(func.getName(), addr, callee.getName())]
+        if callee.getName() in DANGEROUS_FUNCS:
+            dangerous_paths[func.getName()].append(new_chain)
+        else:
+            trace_dangerous_calls(callee, depth + 1, new_chain)
+
+def print_results():
+    print("\n=== Dangerous Call Path Analysis ===")
+    for origin_func, paths in dangerous_paths.items():
+        print("\n[Function: {}]".format(origin_func))
+        for path in paths:
+            for caller, addr, callee in path:
+                print("  {} -> {} @ {}".format(caller, callee, addr))
+            print("-" * 40)
+    if not dangerous_paths:
+        print("No dangerous calls found within {} levels.".format(MAX_DEPTH))
+
+# ======== ENTRY POINT ========
+
+if __name__ == '__main__':
+    args = getScriptArgs()
+
+    if not args:
+        print("Usage: -postscript script.py FUNC_NAME")
+        exit()
+
+    func_name = args[0]
+    print("Analyzing entry function:", func_name)
+
+    # Get function by name or address
+    if func_name.startswith("0x") or func_name.isdigit():
+        addr = toAddr(int(func_name, 16))
+        func = getFunctionAt(addr)
+    else:
+        func = get_func_by_name(func_name)
+
+    if not func:
+        print("Function not found:", func_name)
+    else:
+        trace_dangerous_calls(func)
+        print_results()

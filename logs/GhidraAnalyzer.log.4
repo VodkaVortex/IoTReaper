@@ -1,0 +1,100 @@
+2025-08-10 09:03:15,708 - GhidraAnalyzer - INFO - Stdout: INFO  Using log config file: jar:file:/home/satc/liva/ghidra/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/satc/.ghidra/.ghidra_10.4_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/satc/.ghidra/.ghidra_10.4_PUBLIC/preferences (Preferences)  
+INFO  Loading previous preferences: /home/satc/.ghidra/.ghidra_9.2.1_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1414 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (SSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (ApplicationTrustManagerFactory)  
+INFO  HEADLESS Script Paths:
+    /home/satc/liva/scripts
+    /home/satc/liva/ghidra/Ghidra/Features/Python/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Debug/Debugger-agent-frida/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/PIC/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/Base/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/8051/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Debug/Debugger-agent-dbgmodel-traceloader/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/DATA/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Features/PDB/ghidra_scripts
+    /home/satc/liva/ghidra/Ghidra/Processors/JVM/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Opening existing project: /home/satc/liva/result/Dlink-DNS320/../libs/libwto.so_de300d/ghidra_res/libwto.so_LibDecompileFunc (HeadlessAnalyzer)  
+INFO  Opening project: /home/satc/liva/result/Dlink-DNS320/../libs/libwto.so_de300d/ghidra_res/libwto.so_LibDecompileFunc (HeadlessProject)  
+INFO  REPORT: Processing project file: /libwto.so (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: /libwto.so (HeadlessAnalyzer)  
+INFO  DWARF already imported, skipping. (DWARFAnalyzer)  
+INFO  Packed database cache: /tmp/satc-Ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: generic_clib (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ARM Constant Reference Analyzer            0.363 secs
+    ARM Symbol                                 0.009 secs
+    ASCII Strings                              0.763 secs
+    Apply Data Archives                        0.671 secs
+    Call Convention ID                         0.005 secs
+    Call-Fixup Installer                       0.003 secs
+    Create Address Tables                      0.008 secs
+    Create Function                            0.017 secs
+    DWARF                                      0.000 secs
+    Data Reference                             0.018 secs
+    Decompiler Switch Analysis                 0.143 secs
+    Demangler GNU                              0.020 secs
+    Disassemble Entry Points                   0.041 secs
+    Embedded Media                             0.008 secs
+    External Entry References                  0.001 secs
+    External Symbol Resolver                   0.004 secs
+    Function Start Pre Search                  0.010 secs
+    Function Start Search                      0.120 secs
+    Function Start Search After Code           0.005 secs
+    Function Start Search After Data           0.003 secs
+    GCC Exception Handlers                     0.039 secs
+    Non-Returning Functions - Discovered       0.015 secs
+    Non-Returning Functions - Known            0.006 secs
+    Reference                                  0.026 secs
+    Shared Return Calls                        0.007 secs
+    Stack                                      0.110 secs
+    Subroutine References                      0.040 secs
+    Subroutine References - One Time           0.011 secs
+-----------------------------------------------------
+     Total Time   2 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: /libwto.so (HeadlessAnalyzer)  
+DangerFlowAnalyzer.java:631: error: not a statement
+            for (Map.Entry<Function, List<CallPath>>
+                          ^
+DangerFlowAnalyzer.java:631: error: reached end of file while parsing
+            for (Map.Entry<Function, List<CallPath>>
+                                                    ^
+DangerFlowAnalyzer.java:632: error: reached end of file while parsing
+
+skipping /home/satc/liva/scripts/DangerFlowAnalyzer.java
+INFO  SCRIPT: /home/satc/liva/scripts/LibDecompileFunc.java (HeadlessAnalyzer)  
+INFO  LibDecompileFunc.java> ✅ Cleared old data for library: libwto.so (GhidraScript)  
+INFO  LibDecompileFunc.java> Decoded base64 string: ["system|00000cc0", "main|0000203c", "wto_setTime|00000d5c", "wto_setTime|00001a7c", "wto_chkTime|00001c04", "init_xml_daemon|00001234", "init_xml_daemon|00000e1c"] (GhidraScript)  
+INFO  LibDecompileFunc.java> Running auto-analysis... (GhidraScript)  
+INFO  LibDecompileFunc.java> Refreshing analysis... (GhidraScript)  
+INFO  LibDecompileFunc.java>  (GhidraScript)  
+INFO  ANALYZING changes made by post scripts: /libwto.so (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: /libwto.so (HeadlessAnalyzer)  
+INFO  REPORT: Save succeeded for processed file: /libwto.so (HeadlessAnalyzer)  
+
+2025-08-10 09:03:15,713 - GhidraAnalyzer - ERROR - Stderr: java version "17.0.12" 2024-07-16 LTS
+Java(TM) SE Runtime Environment (build 17.0.12+8-LTS-286)
+Java HotSpot(TM) 64-Bit Server VM (build 17.0.12+8-LTS-286, mixed mode)
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
