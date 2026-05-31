@@ -118,3 +118,42 @@ def test_sink_fallback_unchanged_when_llm_found_nothing():
     sink_list = ast.literal_eval(captured["sink"])
     assert "sprintf" in sink_list
     assert "strcpy" in sink_list
+
+
+# ---------------------------------------------------------------------------
+# Bug 2: source 列表
+# ---------------------------------------------------------------------------
+
+def test_source_includes_sub28B84_from_config_ini():
+    """Bug 2: sub_28B84 from config.ini [SourceFunction] must reach SQLite source field."""
+    captured = _run_danger_with_mocks(
+        source_point=["GetValue"],   # LLM found GetValue only
+        sink_point=[],
+    )
+    source_list = ast.literal_eval(captured["source"])
+    assert "sub_28B84" in source_list, (
+        f"sub_28B84 from config.ini [SourceFunction] should be merged in, got: {source_list}"
+    )
+
+
+def test_source_includes_config_ini_even_when_source_point_empty():
+    """Bug 2: config.ini [SourceFunction] merged even when LLM source stage was skipped."""
+    captured = _run_danger_with_mocks(
+        source_point=[],   # source stage skipped / LLM found nothing
+        sink_point=[],
+    )
+    source_list = ast.literal_eval(captured["source"])
+    assert "sub_28B84" in source_list
+    assert "GetValue" in source_list
+
+
+def test_source_no_duplicates():
+    """Bug 2: GetValue appears in both source_point and config.ini; must not be duplicated."""
+    captured = _run_danger_with_mocks(
+        source_point=["GetValue"],
+        sink_point=[],
+    )
+    source_list = ast.literal_eval(captured["source"])
+    assert source_list.count("GetValue") == 1, (
+        f"GetValue duplicated: {source_list}"
+    )

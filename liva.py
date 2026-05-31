@@ -259,8 +259,15 @@ def run_stage_danger():
 
         if config.LivaConfig.source_point != []:
             parsed_sources = config.LivaConfig.source_point
+        # Merge config.ini [SourceFunction] — consistent with run_stage_infer()
+        if config.LivaConfig.config.has_section("SourceFunction"):
+            for val in config.LivaConfig.config["SourceFunction"].values():
+                for s in val.split(","):
+                    s = s.strip()
+                    if s and s not in parsed_sources:
+                        parsed_sources.append(s)
         # Save sources
-        print("SourcePoint: ",parsed_sources)
+        print("SourcePoint: ", parsed_sources)
         upsert_ProjectInfo_data(tag="source", data=str(parsed_sources))
 
         # Sink remains static (can also be interactive if needed)
