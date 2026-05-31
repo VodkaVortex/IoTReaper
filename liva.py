@@ -267,8 +267,21 @@ def run_stage_danger():
         # upsert_ProjectInfo_data(tag="sink", data="['system','popen','sprintf']")
         sink_data = "['system','strcat','sprintf','popen','strcpy']"
         if len(config.LivaConfig.sink_point) != 0:
-            config.LivaConfig.sink_point.append("system")
-            config.LivaConfig.sink_point.append("strcpy")
+            cfg = config.LivaConfig.config
+            if cfg.has_section("VulFunction"):
+                vul_funcs = dict(cfg["VulFunction"])
+            else:
+                vul_funcs = {}
+            for val in vul_funcs.values():
+                try:
+                    json.loads(val)   # skip "param" key which is a JSON object
+                    continue
+                except Exception:
+                    pass
+                for s in val.split(","):
+                    s = s.strip()
+                    if s and s not in config.LivaConfig.sink_point:
+                        config.LivaConfig.sink_point.append(s)
             sink_data = str(config.LivaConfig.sink_point)
         upsert_ProjectInfo_data(tag="sink", data=sink_data)
 
