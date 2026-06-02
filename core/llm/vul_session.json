@@ -13,10 +13,42 @@
   },
   {
     "role": "user",
-    "content": "Please answer strictly based on my requirements and examples, Don’t have redundant answers!!!  Don’t analyze functions with similar names — only analyze functions with exactly the same name."
+    "content": "Please answer strictly based on my requirements and examples, Don't have redundant answers!!!  Don't analyze functions with similar names — only analyze functions with exactly the same name."
   },
   {
     "role": "assistant",
     "content": "ok , please input "
+  },
+  {
+    "role": "user",
+    "content": "source_function: GetValue()\nsink_function: doSystemCmd()\ncall_chain: FUN_ci_demo->doSystemCmd()\ntaint_evidence:\n  [1] FUN_ci_demo calls doSystemCmd(params=['1', '2']) at line:6: doSystemCmd(\"echo '%s' > /tmp/userListFile\", s);\ncode:\n// --- FUN_ci_demo ---\nint sub_ci_demo()\n{\n  char s[128];\n  GetValue(\"usb.samba.userlist\", s);\n  doSystemCmd(\"echo '%s' > /tmp/userListFile\", s);\n}\n// Note: User-controlled string flows into shell command via %s. Command injection."
+  },
+  {
+    "role": "assistant",
+    "content": "Yes"
+  },
+  {
+    "role": "user",
+    "content": "source_function: GetValue()\nsink_function: strcpy()\ncall_chain: FUN_bo_demo->strcpy()\ntaint_evidence:\n  [1] FUN_bo_demo calls strcpy(params=['2']) at line:5: strcpy(dest, a1);\ncode:\n// --- FUN_bo_demo ---\nint __fastcall sub_bo_demo(const char *a1)\n{\n  char dest[64];\n  strcpy(dest, a1);\n}\n// Note: User-controlled a1 copied into 64-byte fixed buffer with no length check. Buffer overflow."
+  },
+  {
+    "role": "assistant",
+    "content": "Yes"
+  },
+  {
+    "role": "user",
+    "content": "source_function: GetValue()\nsink_function: doSystemCmd()\ncall_chain: FUN_safe_demo->doSystemCmd()\ntaint_evidence:\n  [1] FUN_safe_demo calls doSystemCmd(params=['1']) at line:8: doSystemCmd(\"killall -9 dhcps\");\ncode:\n// --- FUN_safe_demo ---\nint sub_safe_demo()\n{\n  char s[32];\n  GetValue(\"wan.enable\", s);\n  if (atoi(s) == 1)\n    doSystemCmd(\"killall -9 dhcps\");\n}\n// Note: doSystemCmd argument is a hardcoded literal. User input only controls branching, not the sink argument. No vulnerability."
+  },
+  {
+    "role": "assistant",
+    "content": "No"
+  },
+  {
+    "role": "user",
+    "content": "source_function: websGetVar()\nsink_function: sprintf()\ncall_chain: FUN_sprintf_demo->sprintf()\ntaint_evidence:\n  [1] FUN_sprintf_demo calls sprintf(params=['2']) at line:4: sprintf(s, \"vpn.ser.%s\", v8);\ncode:\n// --- FUN_sprintf_demo ---\nint sub_sprintf_demo(int webs)\n{\n  char s[32];\n  const char *v8 = websGetVar(webs, \"service\", \"\");\n  sprintf(s, \"vpn.ser.%s\", v8);\n}\n// Note: v8 comes from HTTP request param. %s writes user string into 32-byte fixed buffer with no length check. Buffer overflow."
+  },
+  {
+    "role": "assistant",
+    "content": "Yes"
   }
 ]
