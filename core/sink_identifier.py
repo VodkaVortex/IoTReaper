@@ -21,7 +21,7 @@ Base = declarative_base()
 
 class SinkIdentifier:
     def __init__(self):
-        self.job_config_path = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/elf_parse/common_functions.json"
+        self.job_config_path = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/elf_parse/common_functions.json"
         self.runner = UnifiedGhidraRunner()
         self.logger = LoggerConfig.configure_logger('SinkIdentifier')
         self.libs_unsafe_func_res = None
@@ -37,7 +37,7 @@ class SinkIdentifier:
 
         # Query the database for existing library names
         try:
-            session = config.LivaConfig.get_db_session(Base)
+            session = config.IoTReaperConfig.get_db_session(Base)
             existing_lib_names = {
                 row.lib_file_name for row in session.query(config.LibUnsafeResJson.lib_file_name).all()
             }
@@ -55,14 +55,14 @@ class SinkIdentifier:
 
             # Encode symbol data as base64 string
             base64_data = base64.b64encode(json.dumps(info).encode('utf-8')).decode('utf-8')
-            lib_path = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{lib_name}" # real lib file
+            lib_path = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{lib_name}" # real lib file
             script_args = [
                 "scripts/lib_unsafe_func.py",
                 lib_name,
                 base64_data,
-                config.LivaConfig.db_path
+                config.IoTReaperConfig.db_path
             ]
-            main_binary = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{config.LivaConfig.main_file_name}"
+            main_binary = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{config.IoTReaperConfig.main_file_name}"
 
             jobs.append((lib_path, script_args, main_binary))
 
@@ -86,7 +86,7 @@ class SinkIdentifier:
         :return: list of tuples (lib_file_name, parsed_result_json)
         """
 
-        session = config.LivaConfig.get_db_session(Base)
+        session = config.IoTReaperConfig.get_db_session(Base)
 
         results = []
         try:
@@ -144,14 +144,14 @@ class SinkIdentifier:
                 continue
             # Encode symbol data as base64 string
             base64_data = base64.b64encode(json.dumps(info).encode('utf-8')).decode('utf-8')
-            lib_path = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{lib_name}"
+            lib_path = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{lib_name}"
             script_args = [
                 "scripts/LibDecompileFunc.java",
                 lib_name,
                 base64_data,
-                config.LivaConfig.db_path
+                config.IoTReaperConfig.db_path
             ]
-            main_binary = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{config.LivaConfig.main_file_name}"
+            main_binary = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{config.IoTReaperConfig.main_file_name}"
 
             jobs.append((lib_path, script_args, main_binary))
 
@@ -209,7 +209,7 @@ class SinkIdentifier:
 
             base_dir:
                 固件解包目录，比如:
-                "/home/satc/liva/result/Dlink-DI8300/jhttpd_9a185c/iot_file"
+                "/home/satc/iotreaper/result/Dlink-DI8300/jhttpd_9a185c/iot_file"
                 最终路径为 os.path.join(base_dir, libname)
 
                 如果为 None，则 file_mapping[libname] = libname（占位）

@@ -2,7 +2,7 @@
 """
 Parse taint_analysis.json result strings into TaintEdge objects.
 
-taint_analysis.json is written by run_stage_taint() (liva.py).
+taint_analysis.json is written by run_stage_taint() (iotreaper.py).
 Each 'result' field contains LLM output in Python-literal syntax:
 
   Variant A (single callee, Chinese prefix, space but no colon):

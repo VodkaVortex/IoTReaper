@@ -174,16 +174,16 @@ class Config:
 
 
 
-LivaConfig = Config()
+IoTReaperConfig = Config()
 # project path
 
 
 if __name__ == "__main__":
-    print(LivaConfig.export_vulconfig_function())
+    print(IoTReaperConfig.export_vulconfig_function())
     print(HOME)
     print(HEADLESS_GHIDRA)
     print(GHIDRA_SCRIPT)
-    print(LivaConfig.config["Script"])
+    print(IoTReaperConfig.config["Script"])
 
 
     

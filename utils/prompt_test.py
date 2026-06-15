@@ -37,7 +37,7 @@ def process_data(input_data):
 
 
 # 输入文件路径
-input_file = '/home/satc/liva/utils/callers.txt'
+input_file = '/home/satc/iotreaper/utils/callers.txt'
 
 # 读取输入文件数据
 try:

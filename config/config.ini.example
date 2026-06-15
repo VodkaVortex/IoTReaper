@@ -1,0 +1,56 @@
+[Info]
+; Device name used to namespace results (e.g. Dlink-DI8300, TOTOLink-EX200)
+device = YOUR_DEVICE_NAME
+
+[ResultDir]
+root = result
+lib_path = libs
+ghidra = ghidra_res
+iot_file = iot_file
+elf_parse = elf_parse
+
+[VulFunction]
+buffer_overflow = memcpy, strcpy, sprintf, sscanf, strcat
+command_injection = system, exec, popen, doSystemCmd
+param = {"system": "1", "popen": "1"}
+
+[Script]
+check_unsafe_function = unsafe_func.py
+
+[LLM]
+; API key for the LLM service used for source/sink reasoning
+; Supports any OpenAI-compatible endpoint (DeepSeek, OpenAI, local vLLM, etc.)
+api_key = YOUR_API_KEY_HERE
+base_url = https://api.deepseek.com/v1
+model = deepseek-chat
+max_tokens = 4000
+temperature = 0.6
+top_p = 1
+n = 1
+
+[Fine-tuning]
+; API key for the fine-tuned taint analysis model
+; Can be the same key as [LLM] or a separate endpoint serving your fine-tuned model
+api_key = YOUR_FINETUNED_API_KEY_HERE
+base_url = https://api.deepseek.com/v1
+model = deepseek-chat
+max_tokens = 8192
+temperature = 0.6
+timeout = 30
+retries = 2
+
+[Session]
+source_session = core/llm/source_session.json
+sink_session = core/llm/sink_session.json
+vul_session = core/llm/vul_session.json
+
+[SourceFunction]
+; Comma-separated known source functions for this firmware (device-specific)
+; These are merged with LLM-identified sources at runtime
+http_param = websGetVar, cgiFormString
+
+[IDAMCP]
+; Path to the ida-mcp server directory (https://github.com/mrexodia/ida-mcp)
+ida_mcp_path = /path/to/ida-mcp
+; Path to your IDA Pro installation directory
+ida_dir = /path/to/IDA Pro

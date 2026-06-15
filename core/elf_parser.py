@@ -25,9 +25,9 @@ class ELFParser:
         self.common_functions = {}
         self.found_libraries = {}  
         self.copied_files = {}  # To store copied libraries and program paths
-        self.config = config.LivaConfig
+        self.config = config.IoTReaperConfig
         self.config.set_binary_path(self.binary_path, None)
-        config.LivaConfig.init_db()
+        config.IoTReaperConfig.init_db()
         # Get the logger configured by LoggerConfig
         # The module name for logging will be 'ELFAnalyzer'
         self.logger = LoggerConfig.configure_logger('ELFAnalyzer')
@@ -258,7 +258,7 @@ class ELFParser:
                 self.logger.warning(f"Library {lib} not found.")
 
         # Save the updated found_libraries to a JSON file
-        result_file = os.path.join(config.LivaConfig.config["ResultDir"]["root"], config.LivaConfig.project_path, self.config.project_name, 'found_libraries.json')
+        result_file = os.path.join(config.IoTReaperConfig.config["ResultDir"]["root"], config.IoTReaperConfig.project_path, self.config.project_name, 'found_libraries.json')
         try:
             with open(result_file, 'w') as f:
                 json.dump(self.all_libraries_data, f, indent=4)

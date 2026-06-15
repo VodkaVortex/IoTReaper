@@ -21,7 +21,7 @@ class SourceIdentifier:
         Each job is a tuple: (binary_path, script_args, main_binary).
         """
         # try:
-        #     session = config.LivaConfig.get_db_session(config.Base)
+        #     session = config.IoTReaperConfig.get_db_session(config.Base)
         #     sink_data = session.query(config.ProjectInfo).filter(config.ProjectInfo.tag == "sink").first()
         #     source_data = session.query(config.ProjectInfo).filter(config.ProjectInfo.tag == "source").first()
         #     print(sink_data.data,source_data.data)
@@ -31,10 +31,10 @@ class SourceIdentifier:
         # source_list = ast.literal_eval(source_data.data)
         # sink_list = ast.literal_eval(sink_data.data)
 
-        main_binary = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{config.LivaConfig.main_file_name}"
+        main_binary = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{config.IoTReaperConfig.main_file_name}"
         script_args = [
             "scripts/SourceIdentifier.java",
-            f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}"
+            f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}"
         ]
         return (main_binary, script_args, main_binary)
 
@@ -53,7 +53,7 @@ class SourceIdentifier:
 
     def load(self):
         """从指定 JSON 文件加载符号数据"""
-        json_path = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/elf_parse/common_functions.json"
+        json_path = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/elf_parse/common_functions.json"
 
         path = Path(json_path)
         if not path.exists():
@@ -106,12 +106,12 @@ class SourceIdentifier:
             # 判断是否是 FUN_xxxxxx 格式
             if re.fullmatch(r"FUN_[0-9a-fA-F]{6,10}", q):
                 # 如果是这种形式，则直接加入 httpd 键
-                grouped.setdefault(config.LivaConfig.main_file_name, []).append(self.convert_name(q))
+                grouped.setdefault(config.IoTReaperConfig.main_file_name, []).append(self.convert_name(q))
             else:
                 # 否则调用 find_symbol
                 matches = self.find_symbol(q, exact=exact)
                 if matches == []:
-                    grouped.setdefault(config.LivaConfig.main_file_name, []).append(q)
+                    grouped.setdefault(config.IoTReaperConfig.main_file_name, []).append(q)
                     continue
                 for m in matches:
                     lib = m["lib"]
@@ -137,7 +137,7 @@ class SourceIdentifier:
             ...
         }
         """
-        report_path = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/strings_calls.txt"
+        report_path = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/strings_calls.txt"
 
         path = Path(report_path)
         if not path.exists():

@@ -1,4 +1,4 @@
-name: Liva
+name: IoTReaper
 channels:
   - defaults
 dependencies:
@@ -48,4 +48,4 @@ dependencies:
       - tqdm==4.67.1
       - typing-extensions==4.12.2
       - urllib3==2.5.0
-prefix: /home/satc/anaconda3/envs/Liva
+prefix: /home/satc/anaconda3/envs/IoTReaper

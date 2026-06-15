@@ -60687,3 +60687,105 @@ Found library paths:
 2026-06-01 16:30:03,024 - ELFAnalyzer - INFO - Processing library: httpd
 2026-06-01 16:30:03,035 - ELFAnalyzer - INFO - Found libraries and symbols saved to result/CH22_01v2/httpd_4717ef/found_libraries.json
 2026-06-01 16:30:03,035 - ELFAnalyzer - INFO - Found common functions saved to result/CH22_01v2/httpd_4717ef/elf_parse/common_functions.json
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO - Found 10 dynamic libraries.
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO - Required dynamic libraries:
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libCfm.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libcommon.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libChipApi.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libnvram.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libshared.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libz.so
+2026-06-06 17:26:34,736 - ELFAnalyzer - INFO -   libpthread.so.0
+2026-06-06 17:26:34,737 - ELFAnalyzer - INFO -   libwifi.so
+2026-06-06 17:26:34,737 - ELFAnalyzer - INFO -   libgcc_s.so.1
+2026-06-06 17:26:34,737 - ELFAnalyzer - INFO -   libc.so.0
+2026-06-06 17:26:34,755 - ELFAnalyzer - INFO - Found paths for 10 libraries.
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO - 
+Found library paths:
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libCfm.so: {'path': 'CH22/lib/libCfm.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libcommon.so: {'path': 'CH22/lib/libcommon.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libChipApi.so: {'path': 'CH22/lib/libChipApi.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libnvram.so: {'path': 'CH22/lib/libnvram.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libshared.so: {'path': 'CH22/lib/libshared.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libz.so: {'path': 'CH22/lib/libz.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libpthread.so.0: {'path': 'CH22/lib/libpthread.so.0'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libwifi.so: {'path': 'CH22/lib/libwifi.so'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libgcc_s.so.1: {'path': 'CH22/lib/libgcc_s.so.1'}
+2026-06-06 17:26:34,756 - ELFAnalyzer - INFO -   libc.so.0: {'path': 'CH22/lib/libc.so.0'}
+2026-06-06 17:26:34,757 - ELFAnalyzer - INFO - File CH22/bin/httpd copied to result/CH22_06v2/httpd_4717ef/iot_file/httpd
+2026-06-06 17:26:34,757 - ELFAnalyzer - INFO - File CH22/lib/libCfm.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libCfm.so
+2026-06-06 17:26:34,758 - ELFAnalyzer - INFO - File CH22/lib/libcommon.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libcommon.so
+2026-06-06 17:26:34,758 - ELFAnalyzer - INFO - File CH22/lib/libChipApi.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libChipApi.so
+2026-06-06 17:26:34,759 - ELFAnalyzer - INFO - File CH22/lib/libnvram.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libnvram.so
+2026-06-06 17:26:34,760 - ELFAnalyzer - INFO - File CH22/lib/libshared.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libshared.so
+2026-06-06 17:26:34,761 - ELFAnalyzer - INFO - File CH22/lib/libz.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libz.so
+2026-06-06 17:26:34,761 - ELFAnalyzer - INFO - File CH22/lib/libpthread.so.0 copied to result/CH22_06v2/httpd_4717ef/iot_file/libpthread.so.0
+2026-06-06 17:26:34,762 - ELFAnalyzer - INFO - File CH22/lib/libwifi.so copied to result/CH22_06v2/httpd_4717ef/iot_file/libwifi.so
+2026-06-06 17:26:34,762 - ELFAnalyzer - INFO - File CH22/lib/libgcc_s.so.1 copied to result/CH22_06v2/httpd_4717ef/iot_file/libgcc_s.so.1
+2026-06-06 17:26:34,763 - ELFAnalyzer - INFO - File CH22/lib/libc.so.0 copied to result/CH22_06v2/httpd_4717ef/iot_file/libc.so.0
+2026-06-06 17:26:34,763 - ELFAnalyzer - INFO - File httpd already exists, skipping.
+2026-06-06 17:26:34,763 - ELFAnalyzer - INFO - Results saved to: result/CH22_06v2/httpd_4717ef/iot_file
+2026-06-06 17:26:34,763 - ELFAnalyzer - INFO - Processing library: libCfm.so
+2026-06-06 17:26:34,767 - ELFAnalyzer - INFO - Processing library: libcommon.so
+2026-06-06 17:26:34,770 - ELFAnalyzer - INFO - Processing library: libChipApi.so
+2026-06-06 17:26:34,772 - ELFAnalyzer - INFO - Processing library: libnvram.so
+2026-06-06 17:26:34,773 - ELFAnalyzer - INFO - Processing library: libshared.so
+2026-06-06 17:26:34,776 - ELFAnalyzer - INFO - Processing library: libz.so
+2026-06-06 17:26:34,778 - ELFAnalyzer - INFO - Processing library: libpthread.so.0
+2026-06-06 17:26:34,785 - ELFAnalyzer - INFO - Processing library: libwifi.so
+2026-06-06 17:26:34,788 - ELFAnalyzer - INFO - Processing library: libgcc_s.so.1
+2026-06-06 17:26:34,792 - ELFAnalyzer - INFO - Processing library: libc.so.0
+2026-06-06 17:26:34,830 - ELFAnalyzer - INFO - Processing library: httpd
+2026-06-06 17:26:34,841 - ELFAnalyzer - INFO - Found libraries and symbols saved to result/CH22_06v2/httpd_4717ef/found_libraries.json
+2026-06-06 17:26:34,842 - ELFAnalyzer - INFO - Found common functions saved to result/CH22_06v2/httpd_4717ef/elf_parse/common_functions.json
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO - Found 10 dynamic libraries.
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO - Required dynamic libraries:
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libCfm.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libcommon.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libChipApi.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libnvram.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libshared.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libz.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libpthread.so.0
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libwifi.so
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libgcc_s.so.1
+2026-06-09 21:12:25,056 - ELFAnalyzer - INFO -   libc.so.0
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO - Found paths for 10 libraries.
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO - 
+Found library paths:
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libCfm.so: {'path': 'CH22/lib/libCfm.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libcommon.so: {'path': 'CH22/lib/libcommon.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libChipApi.so: {'path': 'CH22/lib/libChipApi.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libnvram.so: {'path': 'CH22/lib/libnvram.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libshared.so: {'path': 'CH22/lib/libshared.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libz.so: {'path': 'CH22/lib/libz.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libpthread.so.0: {'path': 'CH22/lib/libpthread.so.0'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libwifi.so: {'path': 'CH22/lib/libwifi.so'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libgcc_s.so.1: {'path': 'CH22/lib/libgcc_s.so.1'}
+2026-06-09 21:12:25,079 - ELFAnalyzer - INFO -   libc.so.0: {'path': 'CH22/lib/libc.so.0'}
+2026-06-09 21:12:25,080 - ELFAnalyzer - INFO - File CH22/bin/httpd copied to result/CH22_09/httpd_4717ef/iot_file/httpd
+2026-06-09 21:12:25,080 - ELFAnalyzer - INFO - File CH22/lib/libCfm.so copied to result/CH22_09/httpd_4717ef/iot_file/libCfm.so
+2026-06-09 21:12:25,081 - ELFAnalyzer - INFO - File CH22/lib/libcommon.so copied to result/CH22_09/httpd_4717ef/iot_file/libcommon.so
+2026-06-09 21:12:25,081 - ELFAnalyzer - INFO - File CH22/lib/libChipApi.so copied to result/CH22_09/httpd_4717ef/iot_file/libChipApi.so
+2026-06-09 21:12:25,081 - ELFAnalyzer - INFO - File CH22/lib/libnvram.so copied to result/CH22_09/httpd_4717ef/iot_file/libnvram.so
+2026-06-09 21:12:25,082 - ELFAnalyzer - INFO - File CH22/lib/libshared.so copied to result/CH22_09/httpd_4717ef/iot_file/libshared.so
+2026-06-09 21:12:25,082 - ELFAnalyzer - INFO - File CH22/lib/libz.so copied to result/CH22_09/httpd_4717ef/iot_file/libz.so
+2026-06-09 21:12:25,083 - ELFAnalyzer - INFO - File CH22/lib/libpthread.so.0 copied to result/CH22_09/httpd_4717ef/iot_file/libpthread.so.0
+2026-06-09 21:12:25,083 - ELFAnalyzer - INFO - File CH22/lib/libwifi.so copied to result/CH22_09/httpd_4717ef/iot_file/libwifi.so
+2026-06-09 21:12:25,084 - ELFAnalyzer - INFO - File CH22/lib/libgcc_s.so.1 copied to result/CH22_09/httpd_4717ef/iot_file/libgcc_s.so.1
+2026-06-09 21:12:25,085 - ELFAnalyzer - INFO - File CH22/lib/libc.so.0 copied to result/CH22_09/httpd_4717ef/iot_file/libc.so.0
+2026-06-09 21:12:25,085 - ELFAnalyzer - INFO - File httpd already exists, skipping.
+2026-06-09 21:12:25,085 - ELFAnalyzer - INFO - Results saved to: result/CH22_09/httpd_4717ef/iot_file
+2026-06-09 21:12:25,085 - ELFAnalyzer - INFO - Processing library: libCfm.so
+2026-06-09 21:12:25,088 - ELFAnalyzer - INFO - Processing library: libcommon.so
+2026-06-09 21:12:25,091 - ELFAnalyzer - INFO - Processing library: libChipApi.so
+2026-06-09 21:12:25,093 - ELFAnalyzer - INFO - Processing library: libnvram.so
+2026-06-09 21:12:25,094 - ELFAnalyzer - INFO - Processing library: libshared.so
+2026-06-09 21:12:25,097 - ELFAnalyzer - INFO - Processing library: libz.so
+2026-06-09 21:12:25,099 - ELFAnalyzer - INFO - Processing library: libpthread.so.0
+2026-06-09 21:12:25,106 - ELFAnalyzer - INFO - Processing library: libwifi.so
+2026-06-09 21:12:25,109 - ELFAnalyzer - INFO - Processing library: libgcc_s.so.1
+2026-06-09 21:12:25,113 - ELFAnalyzer - INFO - Processing library: libc.so.0
+2026-06-09 21:12:25,151 - ELFAnalyzer - INFO - Processing library: httpd
+2026-06-09 21:12:25,161 - ELFAnalyzer - INFO - Found libraries and symbols saved to result/CH22_09/httpd_4717ef/found_libraries.json
+2026-06-09 21:12:25,162 - ELFAnalyzer - INFO - Found common functions saved to result/CH22_09/httpd_4717ef/elf_parse/common_functions.json

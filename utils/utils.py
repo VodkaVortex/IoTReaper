@@ -58,7 +58,7 @@ def get_md5_prefix(file_path, length=6):
     return md5.hexdigest()[:length]
 
 def upsert_ProjectInfo_data(tag, data):
-    session = config.LivaConfig.get_db_session(config.Base)
+    session = config.IoTReaperConfig.get_db_session(config.Base)
     try:
         # 尝试查询是否已有此 tag
         existing_record = session.query(config.ProjectInfo).filter_by(tag=tag).first()
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     # folder_path = "my_directory"
     # ensure_directory_exists(folder_path, logger)
 
-    target_directory = "/home/satc/liva/result"
+    target_directory = "/home/satc/iotreaper/result"
     subfolder_list = scan_subfolders(target_directory)
     print("dir list:", subfolder_list)
 

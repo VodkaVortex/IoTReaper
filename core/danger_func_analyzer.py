@@ -35,7 +35,7 @@ class DangerFuncAnalyzer:
             ida_mcp_path=ida_mcp_path or "/Users/yangshuangning/VscodeProjects/ida-mcp-main",
             ida_dir=ida_dir,
         )
-        self.bin_path = Path(config.LivaConfig.binary_path)
+        self.bin_path = Path(config.IoTReaperConfig.binary_path)
         self.logger = LoggerConfig.configure_logger('DangerFuncAnalyzer')
         self.runner = UnifiedGhidraRunner()
 
@@ -49,7 +49,7 @@ class DangerFuncAnalyzer:
         - 写回 decompiled_c 字段
         - 保存到 base_dir/parent_child_calls_ida_decompile.json
         """
-        base_dir = Path(f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}")
+        base_dir = Path(f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}")
         parent_child_calls_path = base_dir / "parent_child_calls.json"
         target_path = base_dir / "parent_child_calls_ida_decompile.json"
 
@@ -135,7 +135,7 @@ class DangerFuncAnalyzer:
         Each job is a tuple: (binary_path, script_args, main_binary).
         """
         # try:
-        #     session = config.LivaConfig.get_db_session(config.Base)
+        #     session = config.IoTReaperConfig.get_db_session(config.Base)
         #     sink_data = session.query(config.ProjectInfo).filter(config.ProjectInfo.tag == "sink").first()
         #     source_data = session.query(config.ProjectInfo).filter(config.ProjectInfo.tag == "source").first()
         #     print(sink_data.data,source_data.data)
@@ -145,11 +145,11 @@ class DangerFuncAnalyzer:
         # source_list = ast.literal_eval(source_data.data)
         # sink_list = ast.literal_eval(sink_data.data)
 
-        main_binary = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{config.LivaConfig.main_file_name}"
+        main_binary = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{config.IoTReaperConfig.main_file_name}"
         script_args = [
             "scripts/DangerFlowAnalyzer.java",
-            config.LivaConfig.db_path,
-            f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}"
+            config.IoTReaperConfig.db_path,
+            f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}"
         ]
         return (main_binary, script_args, main_binary)
     
@@ -159,10 +159,10 @@ class DangerFuncAnalyzer:
         Only add jobs for libraries that are not already in the database.
         Each job is a tuple: (binary_path, script_args, main_binary).
         """
-        main_binary = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{config.LivaConfig.main_file_name}"
+        main_binary = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{config.IoTReaperConfig.main_file_name}"
         script_args = [
             "scripts/DangerFuncDecompile.java",
-            f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}"
+            f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}"
         ]
         return (main_binary, script_args, main_binary)
     

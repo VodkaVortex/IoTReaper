@@ -41,22 +41,22 @@ def _run_danger_with_mocks(source_point: list, sink_point: list) -> dict:
     Returns dict {tag: data_string} as captured from upsert_ProjectInfo_data calls.
 
     Patches:
-    - config.LivaConfig attributes (source_point, sink_point, config)
+    - config.IoTReaperConfig attributes (source_point, sink_point, config)
     - upsert_ProjectInfo_data  →  captures tag/data pairs
     - builtins.input           →  returns "" (skip interactive prompt)
-    - liva.DangerFuncAnalyzer  →  no-op mock (avoids real IDA/Ghidra)
+    - iotreaper.DangerFuncAnalyzer  →  no-op mock (avoids real IDA/Ghidra)
     """
-    from config import config as liva_config
-    import liva
+    from config import config as iotreaper_config
+    import iotreaper
 
     # Stash originals so tests don't bleed into each other
-    orig_source = liva_config.LivaConfig.source_point
-    orig_sink   = liva_config.LivaConfig.sink_point
-    orig_cfg    = liva_config.LivaConfig.config
+    orig_source = iotreaper_config.IoTReaperConfig.source_point
+    orig_sink   = iotreaper_config.IoTReaperConfig.sink_point
+    orig_cfg    = iotreaper_config.IoTReaperConfig.config
 
-    liva_config.LivaConfig.source_point = list(source_point)
-    liva_config.LivaConfig.sink_point   = list(sink_point)
-    liva_config.LivaConfig.config       = _make_ini_config()
+    iotreaper_config.IoTReaperConfig.source_point = list(source_point)
+    iotreaper_config.IoTReaperConfig.sink_point   = list(sink_point)
+    iotreaper_config.IoTReaperConfig.config       = _make_ini_config()
 
     captured = {}
 
@@ -68,14 +68,14 @@ def _run_danger_with_mocks(source_point: list, sink_point: list) -> dict:
     mock_danger_inst.run_dangercompile_IDA.return_value = None
 
     try:
-        with patch("liva.upsert_ProjectInfo_data", side_effect=fake_upsert), \
+        with patch("iotreaper.upsert_ProjectInfo_data", side_effect=fake_upsert), \
              patch("builtins.input", return_value=""), \
-             patch("liva.DangerFuncAnalyzer", return_value=mock_danger_inst):
-            liva.run_stage_danger()
+             patch("iotreaper.DangerFuncAnalyzer", return_value=mock_danger_inst):
+            iotreaper.run_stage_danger()
     finally:
-        liva_config.LivaConfig.source_point = orig_source
-        liva_config.LivaConfig.sink_point   = orig_sink
-        liva_config.LivaConfig.config       = orig_cfg
+        iotreaper_config.IoTReaperConfig.source_point = orig_source
+        iotreaper_config.IoTReaperConfig.sink_point   = orig_sink
+        iotreaper_config.IoTReaperConfig.config       = orig_cfg
 
     return captured
 

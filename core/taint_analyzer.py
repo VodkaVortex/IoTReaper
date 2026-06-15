@@ -20,7 +20,7 @@ class TaintAnalyzer:
         self,
         client,
         *,
-        model: str = "Liva",
+        model: str = "IoTReaper",
         temperature: float = 0.8,
         max_tokens: int = 8196,
         timeout: int = 70,
@@ -219,7 +219,7 @@ class TaintAnalyzer:
         - entry_vars: dict[str, str]，形式如 {"entry_1": paragraph1, "entry_2": paragraph2, ...}
         """
         # Resolve JSON path
-        base_dir = Path(f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}")
+        base_dir = Path(f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}")
         json_path = base_dir / "preprocess_gpt_data.json"
 
         # Load JSON
@@ -277,7 +277,7 @@ class TaintAnalyzer:
             Path: The path to the output JSON file.
         """
         # Define input/output file paths
-        base_dir = Path(f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}")
+        base_dir = Path(f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}")
         in_path = base_dir / "parent_child_calls_ida_decompile.json"
         out_path = base_dir / "preprocess_gpt_data.json"
         base_dir.mkdir(parents=True, exist_ok=True)
@@ -346,8 +346,8 @@ class TaintAnalyzer:
         # Build output structure
         output_payload = {
             "meta": {
-                "project_path": config.LivaConfig.project_path,
-                "main_project_name": config.LivaConfig.main_project_name,
+                "project_path": config.IoTReaperConfig.project_path,
+                "main_project_name": config.IoTReaperConfig.main_project_name,
                 "source_file": str(in_path),
                 "total_items": len(data),
                 "analyzed": len(results),

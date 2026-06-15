@@ -25,7 +25,7 @@ HEX_ADDR_RE = re.compile(r"^0x[0-9a-fA-F]+$")
 # ---------- Stage wrappers ----------
 def run_stage_elf(binary: str, search_dir: str, device: str):
     """Stage: ELF parsing and dependency analysis"""
-    config.LivaConfig.set_device_info(device)
+    config.IoTReaperConfig.set_device_info(device)
     try:
         analyzer = ELFParser(binary, search_dir)
         libraries = analyzer.get_needed_libraries()
@@ -71,7 +71,7 @@ def run_stage_source():
 
         source_identifier.pretty_print(grouped)
 
-        idamcp_config = config.LivaConfig.config["IDAMCP"]
+        idamcp_config = config.IoTReaperConfig.config["IDAMCP"]
         client = IDAMCPClient(
             ida_mcp_path=idamcp_config["ida_mcp_path"],
             ida_dir=idamcp_config.get("ida_dir", ""),
@@ -79,7 +79,7 @@ def run_stage_source():
         funcs_by_lib = grouped
         file_mapping = {}
         for binary in grouped:
-            file_mapping[binary] = f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/{binary}"
+            file_mapping[binary] = f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/{binary}"
         batch_resp = client.send_multiple_libs(
             file_mapping=file_mapping,
             funcs_by_lib=funcs_by_lib,
@@ -110,7 +110,7 @@ def run_stage_source():
         if isinstance(response, bytes):
             # print(response.decode("utf-8", errors="ignore"))
             source_point = parse_funcnames(response.decode("utf-8", errors="ignore"))
-            config.LivaConfig.source_point = source_point
+            config.IoTReaperConfig.source_point = source_point
         else:
             print(response)
     except Exception:
@@ -127,11 +127,11 @@ def run_stage_sink():
         parsed_results = identifier.load_results_from_sqlite()
         funcs_by_lib, file_mapping, chains_by_lib  = identifier.build_funcs_files_and_chains_from_parsed_results(
             parsed_results,
-            base_dir=f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}/iot_file/",
+            base_dir=f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}/iot_file/",
             verbose=True,
         )
 
-        idamcp_config = config.LivaConfig.config["IDAMCP"]
+        idamcp_config = config.IoTReaperConfig.config["IDAMCP"]
         client = IDAMCPClient(
             ida_mcp_path=idamcp_config["ida_mcp_path"],
             ida_dir=idamcp_config.get("ida_dir", ""),
@@ -179,7 +179,7 @@ def run_stage_sink():
             identifier.logger.info(f"{lib_name}: {len(res)} items loaded.")
         
         # print(sink)
-        config.LivaConfig.sink_point = sink
+        config.IoTReaperConfig.sink_point = sink
     except Exception:
         logging.getLogger().exception("[SINK] Stage failed")
         raise
@@ -243,7 +243,7 @@ def run_stage_danger():
             "Press Enter to use default."
         )
         user_input = ""
-        if config.LivaConfig.source_point == []:
+        if config.IoTReaperConfig.source_point == []:
             user_input = input("source => ").strip()
 
         parsed_sources = []
@@ -257,11 +257,11 @@ def run_stage_danger():
         else:
             parsed_sources = ['getenv|0x0040ccf0', 'webget|0x41ac8']
 
-        if config.LivaConfig.source_point != []:
-            parsed_sources = config.LivaConfig.source_point
+        if config.IoTReaperConfig.source_point != []:
+            parsed_sources = config.IoTReaperConfig.source_point
         # Merge config.ini [SourceFunction] — consistent with run_stage_infer()
-        if config.LivaConfig.config.has_section("SourceFunction"):
-            for val in config.LivaConfig.config["SourceFunction"].values():
+        if config.IoTReaperConfig.config.has_section("SourceFunction"):
+            for val in config.IoTReaperConfig.config["SourceFunction"].values():
                 for s in val.split(","):
                     s = s.strip()
                     if s and s not in parsed_sources:
@@ -273,8 +273,8 @@ def run_stage_danger():
         # Sink remains static (can also be interactive if needed)
         # upsert_ProjectInfo_data(tag="sink", data="['system','popen','sprintf']")
         sink_data = "['system','strcat','sprintf','popen','strcpy']"
-        if len(config.LivaConfig.sink_point) != 0:
-            cfg = config.LivaConfig.config
+        if len(config.IoTReaperConfig.sink_point) != 0:
+            cfg = config.IoTReaperConfig.config
             if cfg.has_section("VulFunction"):
                 vul_funcs = dict(cfg["VulFunction"])
             else:
@@ -287,13 +287,13 @@ def run_stage_danger():
                     pass
                 for s in val.split(","):
                     s = s.strip()
-                    if s and s not in config.LivaConfig.sink_point:
-                        config.LivaConfig.sink_point.append(s)
-            sink_data = str(config.LivaConfig.sink_point)
+                    if s and s not in config.IoTReaperConfig.sink_point:
+                        config.IoTReaperConfig.sink_point.append(s)
+            sink_data = str(config.IoTReaperConfig.sink_point)
         upsert_ProjectInfo_data(tag="sink", data=sink_data)
 
         # Run analysis
-        idamcp_config = config.LivaConfig.config["IDAMCP"]
+        idamcp_config = config.IoTReaperConfig.config["IDAMCP"]
         danger_func = DangerFuncAnalyzer(
             ida_mcp_path=idamcp_config["ida_mcp_path"],
             ida_dir=idamcp_config.get("ida_dir", ""),
@@ -321,15 +321,15 @@ def run_stage_taint():
 
     try:
         # Initialize OpenAI client and analyzer
-        liva_config = config.LivaConfig.config["Fine-tuning"]
-        client = OpenAI(api_key=liva_config["api_key"], base_url=liva_config["base_url"])
+        iotreaper_config = config.IoTReaperConfig.config["Fine-tuning"]
+        client = OpenAI(api_key=iotreaper_config["api_key"], base_url=iotreaper_config["base_url"])
         analyzer = TaintAnalyzer(
             client=client,
-            model=liva_config["model"],
-            temperature=float(liva_config["temperature"]),
-            max_tokens=int(liva_config["max_tokens"]),
-            timeout=int(liva_config["timeout"]),
-            retries=int(liva_config["retries"])
+            model=iotreaper_config["model"],
+            temperature=float(iotreaper_config["temperature"]),
+            max_tokens=int(iotreaper_config["max_tokens"]),
+            timeout=int(iotreaper_config["timeout"]),
+            retries=int(iotreaper_config["retries"])
         )
 
         results = []  # Store all analysis results
@@ -358,7 +358,7 @@ def run_stage_taint():
         print(f"All analyses completed: {len(results)}/{total_entries} processed")
 
         # ---------------- Save to file ----------------
-        base_dir = Path(f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}")
+        base_dir = Path(f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}")
         base_dir.mkdir(parents=True, exist_ok=True)
 
         save_path = base_dir / "taint_analysis.json"
@@ -383,22 +383,22 @@ def run_stage_taint():
 def run_stage_infer():
     """Stage: Vulnerability inference using SimplePathFinder (no Neo4j)"""
     from pathlib import Path as _Path
-    base_dir = _Path(f"result/{config.LivaConfig.project_path}/{config.LivaConfig.main_project_name}")
+    base_dir = _Path(f"result/{config.IoTReaperConfig.project_path}/{config.IoTReaperConfig.main_project_name}")
     parent_child_file = base_dir / "parent_child_calls_ida_decompile.json"
 
-    vul_funcs = config.LivaConfig.config["VulFunction"]
+    vul_funcs = config.IoTReaperConfig.config["VulFunction"]
     sink_funcs = (
         [s.strip() for s in vul_funcs["command_injection"].split(",") if s.strip()]
         + [s.strip() for s in vul_funcs["buffer_overflow"].split(",") if s.strip()]
     )
     source_funcs_from_config = []
-    if "SourceFunction" in config.LivaConfig.config:
-        for val in config.LivaConfig.config["SourceFunction"].values():
+    if "SourceFunction" in config.IoTReaperConfig.config:
+        for val in config.IoTReaperConfig.config["SourceFunction"].values():
             source_funcs_from_config += [s.strip() for s in val.split(",") if s.strip()]
     # Merge LLM-identified sources + config.ini [SourceFunction]; never discard either.
     # The old `or` short-circuit silently dropped config sources when source_point was non-empty.
     merged_sources = list(dict.fromkeys(
-        (config.LivaConfig.source_point or []) + source_funcs_from_config
+        (config.IoTReaperConfig.source_point or []) + source_funcs_from_config
     ))
     source_funcs = merged_sources or ["websGetVar", "cgiFormString", "httpd_get_parm"]
 
@@ -478,9 +478,9 @@ if __name__ == "__main__":
         exit(0)
 
     # 初始化全局 config（无论跳过哪些阶段都需要）
-    config.LivaConfig.set_device_info(args.device)
-    config.LivaConfig.set_binary_path(args.binary, None)
-    config.LivaConfig.init_db()
+    config.IoTReaperConfig.set_device_info(args.device)
+    config.IoTReaperConfig.set_binary_path(args.binary, None)
+    config.IoTReaperConfig.init_db()
 
     # 执行
     try:

@@ -2,7 +2,7 @@ import sqlite3
 import json
 import os
 
-db_path = "/home/satc/liva/result/Trendnet-TEW824DRU/ghidra_analyze_res.db"
+db_path = "/home/satc/iotreaper/result/Trendnet-TEW824DRU/ghidra_analyze_res.db"
 output_file = "callchain_decompile_result.txt"  # 输出文件名
 
 conn = sqlite3.connect(db_path)

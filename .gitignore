@@ -1,2 +1,13 @@
 result/
 .DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Config with real API keys and local paths — never commit this
+config/config.ini
+
+# Logs
+logs/*.log
+logs/*.log.*

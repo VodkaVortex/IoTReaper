@@ -11,7 +11,7 @@ from utils.utils import scan_subfolders
 def _worker_initializer(device: str):
     # Spawned worker processes get a fresh Config with device=None.
     # Set device here so set_directory_map() has a valid path to join.
-    config.LivaConfig.set_device_info(device)
+    config.IoTReaperConfig.set_device_info(device)
 
 
 def _analyze_worker(args):
@@ -38,7 +38,7 @@ class UnifiedGhidraRunner:
             analyzer = GhidraAnalyzer(script_args, binary_path, main_file)
             return [analyzer.analyze_program(binary_path)]
         elif isinstance(jobs, list):
-            device = config.LivaConfig.device
+            device = config.IoTReaperConfig.device
             with Pool(
                 processes=min(max(int(cpu_count()/2), 2), len(jobs)),
                 initializer=_worker_initializer,
@@ -53,7 +53,7 @@ class UnifiedGhidraRunner:
 class GhidraAnalyzer:
     def __init__(self, ghidra_script_args, binary_path=None, main_file=None):
         self.ghidra_script = ghidra_script_args  # 例：["unsafe_func.py", "arg1", "arg2"]
-        self.config = config.LivaConfig
+        self.config = config.IoTReaperConfig
         self.main_file = main_file
         if binary_path:
             self.config.set_binary_path(binary_path, main_file)
