@@ -262,7 +262,3 @@ If you use IoTReaper in your research, please cite:
 ```
 
 ---
-
-## License
-
-MIT License. See [LICENSE](LICENSE) for details.
