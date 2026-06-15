@@ -60,7 +60,7 @@ IoTReaper runs as a six-stage pipeline. Stages can be run individually or compos
 | Source ID | `source` | LLM identifies user-input entry points (`websGetVar`, `nvram_get`, …) via IDA decompilation |
 | Sink ID | `sink` | LLM scores call chains ending at dangerous functions (`system`, `popen`, `sprintf`, …) |
 | Danger Decompile | `danger` | IDA MCP decompiles all dangerous-function callers into structured JSON |
-| Taint Analysis | `taint` | Fine-tuned LLM traces data flow from sources through decompiled code to sinks |
+| Taint Analysis | `taint` | LLM traces parameter-mapping from decompiled callers to sinks via few-shot prompting; preprocessing is fully rule-based (regex) |
 | Infer | `infer` | Path finder ranks source→sink chains; LLM generates final vulnerability report |
 
 ```
@@ -79,7 +79,7 @@ Firmware ELF
  [danger] ───► decompiled callers    (IDA MCP)
      │
      ▼
- [taint] ────► taint trace JSON      (fine-tuned LLM)
+ [taint] ────► taint trace JSON      (LLM)
      │
      ▼
  [infer] ────► vul_result.txt        (path finder + LLM)
@@ -96,8 +96,6 @@ Firmware ELF
 | [Ghidra](https://ghidra-sre.org/) | 10.x | Binary analysis & call graph extraction |
 | [IDA Pro](https://hex-rays.com/ida-pro/) | 8.x / 9.x | High-quality decompilation via MCP |
 | [ida-mcp](https://github.com/mrexodia/ida-mcp) | latest | IDA ↔ IoTReaper bridge |
-| [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) | latest | Serve fine-tuned taint model (optional) |
-| DeepSeek / OpenAI-compatible API | — | LLM reasoning (source/sink/infer stages) |
 
 > **IDA Pro is required** for the `source`, `sink`, `danger`, and `taint` stages. Ghidra alone covers the `elf` stage.
 
@@ -137,20 +135,7 @@ IoTReaper/
 
 Install [ida-mcp](https://github.com/mrexodia/ida-mcp) and point `config.ini` to it (see Configuration below).
 
-### 5. Fine-tuned taint model (optional)
-
-If you have a fine-tuned Qwen3-based model, serve it with LLaMA-Factory:
-
-```bash
-export CUDA_VISIBLE_DEVICES=0 API_PORT=8000
-
-llamafactory-cli api \
-  --model_name_or_path /path/to/your/fine-tuned-model \
-  --template qwen3 \
-  --infer_backend huggingface
-```
-
-Then set `base_url = http://localhost:8000/v1` in the `[Fine-tuning]` section of `config.ini`. Without a fine-tuned model, point `[Fine-tuning]` at any DeepSeek / OpenAI-compatible endpoint.
+> **Optional — fine-tuned taint model:** The `[Fine-tuning]` config section can point to any OpenAI-compatible endpoint, including a locally-served fine-tuned model (e.g. via LLaMA-Factory or vLLM). Out of the box it works with the same standard API as `[LLM]`; no local GPU or model download is required.
 
 ---
 
