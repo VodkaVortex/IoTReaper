@@ -95,7 +95,6 @@ Firmware ELF
 | Java (OpenJDK) | 11+ | Ghidra headless analysis |
 | [Ghidra](https://ghidra-sre.org/) | 10.x | Binary analysis & call graph extraction |
 | [IDA Pro](https://hex-rays.com/ida-pro/) | 8.x / 9.x | High-quality decompilation via MCP |
-| [ida-mcp](https://github.com/mrexodia/ida-mcp) | latest | IDA ↔ IoTReaper bridge |
 
 > **IDA Pro is required** for the `source`, `sink`, `danger`, and `taint` stages. Ghidra alone covers the `elf` stage.
 
@@ -133,9 +132,7 @@ IoTReaper/
 
 ### 4. IDA Pro + ida-mcp
 
-Install [ida-mcp](https://github.com/mrexodia/ida-mcp) and point `config.ini` to it (see Configuration below).
-
-> **Optional — fine-tuned taint model:** The `[Fine-tuning]` config section can point to any OpenAI-compatible endpoint, including a locally-served fine-tuned model (e.g. via LLaMA-Factory or vLLM). Out of the box it works with the same standard API as `[LLM]`; no local GPU or model download is required.
+Install [ida-mcp](https://github.com/mrexodia/ida-mcp) and point `config.ini` to it (see Configuration in the link).
 
 ---
 
@@ -152,14 +149,9 @@ Edit `config/config.ini` — the fields you must fill in:
 device = Dlink-DI8300          # namespaces all results under result/Dlink-DI8300/
 
 [LLM]
-api_key = YOUR_API_KEY_HERE    # DeepSeek, OpenAI, or any compatible endpoint
-base_url = https://api.deepseek.com/v1
-model = deepseek-chat
-
-[Fine-tuning]
-api_key = YOUR_API_KEY_HERE    # can be same key; or local vLLM endpoint
-base_url = https://api.deepseek.com/v1
-model = deepseek-chat
+api_key = YOUR_API_KEY_HERE    # OpenAI, or any compatible endpoint
+base_url = BASE_URL_HERE 
+model = Model
 
 [IDAMCP]
 ida_mcp_path = /path/to/ida-mcp
